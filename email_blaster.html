@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cybernetic Control Panel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Orbitron for titles/numbers, Inter for general text -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* Custom CSS for a deeper, more animated dark theme with glowing rainbow accents */
+    :root {
+      /* Define rainbow colors as CSS variables */
+      --color-red: #FF0000;
+      --color-orange: #FF7F00;
+      --color-yellow: #FFFF00;
+      --color-green: #00FF00;
+      --color-blue: #0000FF;
+      --color-indigo: #4B0082;
+      --color-violet: #9400D3;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif; /* Default font for body */
+      background: #000000; /* True black background for maximum contrast */
+      color: #b0b0b0; /* Muted silver text for contrast */
+      margin: 0;
+      padding: 20px; /* Add some padding for mobile screens */
+      box-sizing: border-box; /* Include padding in element's total width and height */
+      position: relative; /* For absolute positioning of background effects */
+      overflow-x: hidden; /* Prevent horizontal scroll */
+      min-height: 100vh; /* Ensure body covers at least viewport height */
+    }
+
+    /* Subtle flowing grid/circuit pattern background effect with faint rainbow hint */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        repeating-linear-gradient(0deg, var(--color-red) 0px, var(--color-orange) 1px, transparent 1px, transparent 40px),
+        repeating-linear-gradient(90deg, var(--color-yellow) 0px, var(--color-green) 1px, transparent 1px, transparent 40px),
+        repeating-linear-gradient(45deg, var(--color-blue) 0px, var(--color-indigo) 1px, transparent 1px, transparent 40px);
+      background-size: 40px 40px;
+      opacity: 0.05; /* Very subtle */
+      pointer-events: none; /* Allows clicks to pass through */
+      animation: dataFlow 20s linear infinite; /* Subtle data flow animation */
+      z-index: -1; /* Ensure it's behind content */
+    }
+
+    /* Keyframes for the data flow background animation */
+    @keyframes dataFlow {
+      from { background-position: 0 0; }
+      to { background-position: 40px 40px; }
+    }
+
+    /* Orbitron font class for specific elements */
+    .font-orbitron {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    /* Universal rainbow glow animation for box-shadows */
+    @keyframes rainbowGlow {
+      0%   { box-shadow: 0 0 10px 3px rgba(255, 0, 0, 0.7); } /* Red */
+      14%  { box-shadow: 0 0 15px 5px rgba(255, 127, 0, 0.8); } /* Orange */
+      28%  { box-shadow: 0 0 20px 7px rgba(255, 255, 0, 0.9); } /* Yellow */
+      42%  { box-shadow: 0 0 15px 5px rgba(0, 255, 0, 0.8); } /* Green */
+      56%  { box-shadow: 0 0 10px 3px rgba(0, 0, 255, 0.7); } /* Blue */
+      70%  { box-shadow: 0 0 15px 5px rgba(75, 0, 130, 0.8); } /* Indigo */
+      84%  { box-shadow: 0 0 20px 7px rgba(148, 0, 211, 0.9); } /* Violet */
+      100% { box-shadow: 0 0 10px 3px rgba(255, 0, 0, 0.7); } /* Red (loop back) */
+    }
+
+    /* Keyframes for staggered pulsing title letters - cycles through rainbow colors */
+    @keyframes cyber-pulse {
+      0%, 100% { opacity: 1; text-shadow: 0 0 10px var(--color-red), 0 0 20px var(--color-red); color: var(--color-red); }
+      14% { opacity: 0.9; text-shadow: 0 0 15px var(--color-orange), 0 0 25px var(--color-orange); color: var(--color-orange); }
+      28% { opacity: 0.8; text-shadow: 0 0 20px var(--color-yellow), 0 0 30px var(--color-yellow); color: var(--color-yellow); }
+      42% { opacity: 0.9; text-shadow: 0 0 15px var(--color-green), 0 0 25px var(--color-green); color: var(--color-green); }
+      56% { opacity: 1; text-shadow: 0 0 10px var(--color-blue), 0 0 20px var(--color-blue); color: var(--color-blue); }
+      70% { opacity: 0.9; text-shadow: 0 0 15px var(--color-indigo), 0 0 25px var(--color-indigo); color: var(--color-indigo); }
+      84% { opacity: 0.8; text-shadow: 0 0 20px var(--color-violet), 0 0 30px var(--color-violet); color: var(--color-violet); }
+    }
+
+    /* Base style for individual letters in the H1 title */
+    .h1-letter {
+      display: inline-block; /* Allows individual animation and spacing */
+      animation: cyber-pulse 7s infinite ease-in-out; /* Longer animation to cycle through 7 colors */
+    }
+
+    /* --- Rainbow Border Effect (for main container and input wrappers) --- */
+    .rainbow-border {
+      position: relative;
+      padding: 2px; /* Controls the thickness of the gradient border */
+      border-radius: 12px; /* Match the inner content's border-radius */
+      background: #000000; /* True black background inside the border */
+      overflow: hidden; /* Ensures the gradient is clipped */
+    }
+
+    .rainbow-border::before {
+      content: '';
+      position: absolute;
+      top: -100%; /* Start off-screen above */
+      left: -100%; /* Start off-screen left */
+      width: 300%; /* Make it large enough to cover diagonal sweep */
+      height: 300%;
+      background: linear-gradient(
+        45deg,
+        var(--color-red),
+        var(--color-orange),
+        var(--color-yellow),
+        var(--color-green),
+        var(--color-blue),
+        var(--color-indigo),
+        var(--color-violet),
+        var(--color-red) /* Repeat for seamless loop */
+      );
+      background-size: 200% 200%; /* Ensure gradient itself is larger for movement */
+      animation: rainbowBorderFlow 4s linear infinite; /* Animation duration for flow */
+      z-index: -1; /* Behind the content */
+    }
+
+    /* Animation for the flowing rainbow border */
+    @keyframes rainbowBorderFlow {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 200% 200%; } /* Move diagonally */
+    }
+
+    /* Apply the rainbow border effect to elements */
+    .apply-rainbow-border {
+      border-radius: 12px; /* Rounded corners */
+      position: relative;
+      background: #000000; /* True black background */
+      padding: 2px; /* Border thickness */
+      overflow: hidden;
+      box-shadow: 0 0 0 transparent; /* Base shadow, will be animated */
+      animation: rainbowGlow 7s infinite alternate; /* Rainbow glow effect */
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .apply-rainbow-border::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: inherit; /* Inherit border-radius from parent */
+      background: linear-gradient(
+        45deg,
+        var(--color-red),
+        var(--color-orange),
+        var(--color-yellow),
+        var(--color-green),
+        var(--color-blue),
+        var(--color-indigo),
+        var(--color-violet)
+      );
+      z-index: -1;
+      margin: -2px; /* Extend beyond the element to create the border */
+      filter: blur(8px); /* Apply a blur for a softer glow effect */
+      opacity: 0.7; /* Adjust opacity for subtle effect */
+      animation: rainbowBorderAnimation 7s linear infinite; /* Animate the gradient itself */
+      background-size: 200% 200%; /* For animating gradient position */
+    }
+
+    @keyframes rainbowBorderAnimation {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    /* Ensure inner content is visible and styled */
+    .inner-content-wrapper {
+      background: #151515; /* Slightly lighter dark background for inner elements */
+      border-radius: 10px; /* Slightly smaller to create border effect */
+      position: relative;
+      z-index: 1; /* Above the pseudo-element border */
+      padding: 1px; /* Small padding inside the border */
+    }
+
+    /* Input and textarea styling */
+    input[type="text"], textarea {
+      background: #151515; /* Dark background */
+      border: none; /* No default border */
+      outline: none; /* No outline */
+      color: #d1d5db; /* Default text color (gray-300) */
+    }
+
+    input[type="text"]:focus, textarea:focus {
+      box-shadow: none; /* Remove default focus shadow from Tailwind */
+      color: #ffffff; /* Brighter text on focus */
+      animation: textRainbowGlow 2s infinite alternate; /* Rainbow text glow on focus */
+    }
+
+    /* Keyframes for text rainbow glow on focus */
+    @keyframes textRainbowGlow {
+      0%   { color: var(--color-red); }
+      14%  { color: var(--color-orange); }
+      28%  { color: var(--color-yellow); }
+      42%  { color: var(--color-green); }
+      56%  { color: var(--color-blue); }
+      70%  { color: var(--color-indigo); }
+      84%  { color: var(--color-violet); }
+      100% { color: var(--color-red); }
+    }
+
+    /* Custom slider styling for a futuristic, high-tech look with rainbow gradient */
+    input[type="range"] {
+      -webkit-appearance: none; /* Remove default WebKit styles */
+      width: 100%;
+      height: 8px; /* Thicker track for better visibility */
+      background: #151515; /* Darker track background */
+      border-radius: 10px;
+      outline: none;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+      box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.1); /* Subtle inner shadow */
+    }
+
+    /* Styles for the slider track (Webkit browsers) */
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 8px;
+      background: linear-gradient(to right, var(--color-red), var(--color-orange), var(--color-yellow), var(--color-green), var(--color-blue), var(--color-indigo), var(--color-violet)); /* Rainbow gradient */
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.3); /* Outer glow for the track */
+    }
+
+    /* Styles for the slider track (Mozilla Firefox) */
+    input[type="range"]::-moz-range-track {
+      height: 8px;
+      background: linear-gradient(to right, var(--color-red), var(--color-orange), var(--color-yellow), var(--color-green), var(--color-blue), var(--color-indigo), var(--color-violet));
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Styles for the slider thumb (Webkit browsers) */
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; /* Remove default WebKit styles */
+      appearance: none;
+      width: 24px; /* Larger thumb for easier interaction */
+      height: 24px;
+      background: var(--color-violet); /* Default thumb color, will be animated via glow */
+      cursor: grab; /* Cursor indicating grab functionality */
+      border-radius: 50%; /* Circular thumb */
+      border: 3px solid var(--color-indigo); /* Stronger border */
+      margin-top: -8px; /* Center thumb vertically on the track */
+      position: relative;
+      z-index: 3;
+      animation: rainbowGlow 7s infinite alternate; /* Apply rainbow glow to thumb */
+      transition: box-shadow 0.2s ease-in-out; /* Smooth transition for box-shadow on active state */
+    }
+
+    /* Styles for the slider thumb when active (Webkit browsers) */
+    input[type="range"]::-webkit-slider-thumb:active {
+        cursor: grabbing; /* Cursor indicating active grab */
+        animation: rainbowGlow 7s infinite alternate; /* Keep glow animation */
+    }
+
+    /* Styles for the slider thumb (Mozilla Firefox) */
+    input[type="range"]::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      background: var(--color-violet);
+      cursor: grab;
+      border-radius: 50%;
+      border: 3px solid var(--color-indigo);
+      position: relative;
+      z-index: 3;
+      animation: rainbowGlow 7s infinite alternate; /* Apply rainbow glow to thumb */
+      transition: box-shadow 0.2s ease-in-out;
+    }
+
+    /* Styles for the slider thumb when active (Mozilla Firefox) */
+    input[type="range"]::-moz-range-thumb:active {
+        cursor: grabbing;
+        animation: rainbowGlow 7s infinite alternate; /* Keep glow animation */
+    }
+
+    /* SVG icon rainbow glow on input focus */
+    .input-icon {
+      transition: color 0.3s ease-in-out; /* Smooth transition */
+      color: #b0b0b0; /* Default icon color */
+    }
+
+    .input-group:focus-within .input-icon {
+      animation: textRainbowGlow 2s infinite alternate; /* Animate icon color */
+    }
+
+    /* Footer text rainbow glow */
+    .footer-text-rainbow {
+        color: #d1d5db; /* Default color for footer text */
+        animation: textRainbowGlow 7s infinite alternate; /* Apply rainbow glow to footer text */
+    }
+  </style>
+</head>
+<body>
+  <!-- Main container for the control panel, centered and responsive -->
+  <div
+    class="relative w-full max-w-md p-8 rounded-xl shadow-2xl transform transition-all duration-300 ease-in-out hover:scale-[1.01] mx-auto apply-rainbow-border"
+  >
+    <!-- Subtle circuit pattern overlay for a tech aesthetic -->
+    <div
+      class="absolute inset-0 bg-[size:100px_100px] opacity-5 rounded-xl"
+      style="background-image: radial-gradient(rgba(255, 255, 255, 0.1) 0.5px, transparent 0.5px);"
+    ></div>
+
+    <!-- Main title with staggered pulsing animation for each letter -->
+    <h1 class="font-orbitron text-3xl mb-8 text-center select-none relative z-10">
+      <!-- Each letter is wrapped in a span with a custom animation delay for the staggered effect -->
+      <span class="h1-letter" style="animation-delay: 0ms;">C</span>
+      <span class="h1-letter" style="animation-delay: 100ms;">Y</span>
+      <span class="h1-letter" style="animation-delay: 200ms;">B</span>
+      <span class="h1-letter" style="animation-delay: 300ms;">E</span>
+      <span class="h1-letter" style="animation-delay: 400ms;">R</span>
+      <span class="h1-letter" style="animation-delay: 500ms;">N</span>
+      <span class="h1-letter" style="animation-delay: 600ms;">E</span>
+      <span class="h1-letter" style="animation-delay: 700ms;">T</span>
+      <span class="h1-letter" style="animation-delay: 800ms;">I</span>
+      <span class="h1-letter" style="animation-delay: 900ms;">C</span>
+      <br>
+      <span class="h1-letter" style="animation-delay: 1000ms;">C</span>
+      <span class="h1-letter" style="animation-delay: 1100ms;">O</span>
+      <span class="h1-letter" style="animation-delay: 1200ms;">N</span>
+      <span class="h1-letter" style="animation-delay: 1300ms;">T</span>
+      <span class="h1-letter" style="animation-delay: 1400ms;">R</span>
+      <span class="h1-letter" style="animation-delay: 1500ms;">O</span>
+      <span class="h1-letter" style="animation-delay: 1600ms;">L</span>
+      <span class="h1-letter" style="animation-delay: 1700ms;">P</span>
+      <span class="h1-letter" style="animation-delay: 1800ms;">A</span>
+      <span class="h1-letter" style="animation-delay: 1900ms;">N</span>
+      <span class="h1-letter" style="animation-delay: 2000ms;">E</span>
+      <span class="h1-letter" style="animation-delay: 2100ms;">L</span>
+    </h1>
+
+    <!-- Target Number input group with a phone icon -->
+    <div class="mb-6 relative z-10 input-group apply-rainbow-border inner-content-wrapper">
+      <label for="targetNumber" class="text-gray-300 text-sm mb-2 block select-none"
+        >Target Number</label
+      >
+      <div class="relative">
+        <input
+          id="targetNumber"
+          type="text"
+          placeholder="+91XXXXXXXXXX"
+          class="w-full font-inter font-semibold text-sm rounded-md py-3 pl-12 pr-4 placeholder-gray-400 transition-all duration-200"
+        />
+        <!-- Phone icon (SVG) embedded directly -->
+        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 input-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h13A1.5 1.5 0 0118 3.5v13a1.5 1.5 0 01-1.5 1.5h-13A1.5 1.5 0 012 16.5v-13zM10.75 3a.75.75 0 00-1.5 0v.75a.75.75 0 001.5 0V3zm-1.5 3a.75.75 0 01.75-.75h.5a.75.75 0 010 1.5h-.5a.75.75 0 01-.75-.75zM10 16.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Number of Calls input group with a hash icon -->
+    <div class="mb-6 relative z-10 input-group apply-rainbow-border inner-content-wrapper">
+      <label for="numCalls" class="text-gray-300 text-sm mb-2 block select-none"
+        >Number of Calls (Max 200)</label
+      >
+      <div class="relative">
+        <input
+          id="numCalls"
+          type="text"
+          placeholder="No of Calls"
+          class="w-full font-inter font-semibold text-sm rounded-md py-3 pl-12 pr-4 placeholder-gray-400 transition-all duration-200"
+        />
+        <!-- Hash icon (SVG) embedded directly -->
+        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 input-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M5.75 2A1.75 1.75 0 004 3.75v12.5A1.75 1.75 0 005.75 18h8.5A1.75 1.75 0 0016 16.25V3.75A1.75 1.75 0 0014.25 2h-8.5zM11.5 4.75a.75.75 0 00-1.5 0V5.5h-1.25a.75.75 0 000 1.5h1.25v1.25a.75.75 0 001.5 0V7H13a.75.75 0 000-1.5h-1.5V4.75zM8.5 13.5a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Bombing Speed slider -->
+    <div class="mb-6 relative z-10">
+      <label for="speed" class="text-gray-300 text-sm mb-2 block select-none"
+        >Bombing Speed</label
+      >
+      <input id="speed" type="range" min="1" max="100" value="50" />
+      <div class="flex justify-between text-gray-300 text-xs mt-1 select-none">
+        <span>Slow</span>
+        <span>Fast</span>
+      </div>
+    </div>
+
+    <!-- Disclaimer textarea (read-only) -->
+    <div class="mb-6 relative z-10 apply-rainbow-border inner-content-wrapper">
+      <textarea
+        rows="6"
+        readonly
+        class="w-full text-gray-300 text-xs font-inter rounded-md p-4 resize-none transition-all duration-200"
+      >This tool is designed for testing purposes only. Please use responsibly and do not misuse it for any illegal activities. The creators are not responsible for any misuse or damage caused by this tool.</textarea>
+    </div>
+
+    <!-- Bomb Now button with pulse animation -->
+    <button
+      id="initiateBombingBtn"
+      class="w-full bg-gradient-to-r from-red-600 via-yellow-500 to-violet-600 text-white font-orbitron font-bold text-lg py-3 rounded-full mb-6 btn-pulse relative z-10 transition-all duration-300 ease-in-out hover:from-red-700 hover:to-violet-700"
+      type="button"
+    >
+      INITIATE SEQUENCE
+    </button>
+
+    <!-- Authorization Key input group with a key icon -->
+    <div class="mb-6 relative z-10 input-group apply-rainbow-border inner-content-wrapper">
+      <div class="relative">
+        <input
+          type="text"
+          placeholder="ENTER AUTHORIZATION KEY"
+          class="w-full text-gray-300 rounded-full py-3 pl-12 pr-4 font-inter text-xs placeholder-gray-400 transition-all duration-200"
+        />
+        <!-- Key icon (SVG) embedded directly -->
+        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 input-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8 2a3 3 0 00-3 3v2h-.5A1.5 1.5 0 003 8.5v3A1.5 1.5 0 004.5 13H5v2a3 3 0 003 3h4a3 3 0 003-3v-2h.5a1.5 1.5 0 001.5-1.5v-3A1.5 1.5 0 0015.5 7H15V5a3 3 0 00-3-3H8zm-.5 5a.5.5 0 011 0v.5a.5.5 0 01-1 0V7zm3 0a.5.5 0 011 0v.5a.5.5 0 01-1 0V7zM8 11.5a.5.5 0 000 1h4a.5.5 0 000-1H8z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Animated Disclaimer box -->
+    <div
+      class="bg-amber-950/70 border-2 border-amber-600 rounded-lg p-5 text-center text-amber-200 text-sm font-inter select-none relative z-10 shadow-lg shadow-amber-900/50"
+      style="line-height: 1.5;"
+    >
+      <div class="flex items-center justify-center mb-3">
+        <!-- Custom Warning Icon (SVG) with bounce animation -->
+        <svg class="w-6 h-6 mr-2 text-amber-400 animate-bounce" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M9.401 3.003c1.155-2.002 4.043-2.002 5.198 0l7.359 12.75c1.154 2.002-.342 4.502-2.599 4.502H4.64L2.043 15.753c-1.155-2.002.342-4.502 2.599-4.502h14.714l-7.359-12.75zM12 9a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9.75A.75.75 0 0112 9zm0 6a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"></path>
+        </svg>
+        <span class="font-bold text-xl text-amber-400">ALERT: DISCLAIMER</span>
+      </div>
+      <p class="mb-2">
+        This tool is intended for <span class="font-bold text-amber-100">ethical testing and personal fun ONLY.</span>
+      </p>
+      <p>
+        <span class="font-bold text-amber-100">DO NOT</span> misuse for harassment or illegal activities.
+      </p>
+      <p class="mt-2">
+        <span class="font-bold text-amber-100">WARNING:</span> Excessive use may cause target device <span class="font-bold text-amber-100">FREEZE or PERMANENT DAMAGE.</span> Proceed with caution.
+      </p>
+    </div>
+
+    <!-- Footer text -->
+    <p class="text-sm mt-8 text-center select-none relative z-10 footer-text-rainbow">
+      SYSTEM INITIATED BY: <span class="font-bold">@bombitup</span>
+    </p>
+  </div>
+
+  <script>
+    document.getElementById('initiateBombingBtn').addEventListener('click', function() {
+      // Redirect to result.html when the button is clicked
+      window.location.href = 'result.html';
+    });
+  </script>
+</body>
+</html>
+

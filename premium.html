@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premium Features</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome for icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    xintegrity="sha512-Fo3rlroqPz6/k6G+9/V9oGg/KjRjU9A9E+N9xL9bJ+oP2D9iG8+xR8+u2z/Bw+lB+w+h+f+A+Q+e+l+h+g=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <style>
+    /* Import Inter font from Google Fonts for a modern, premium feel */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif; /* Apply Inter font to the whole body */
+    }
+    /* Custom CSS for a subtle gradient background */
+    body {
+      background: radial-gradient(at top left, #1e293b, #0f172a); /* Dark blue-gray gradient */
+    }
+    /* Custom keyframes for the bouncy effect */
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+        animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+      }
+      50% {
+        transform: translateY(-5px); /* Lift slightly */
+        animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+      }
+    }
+
+    .bouncy-card:hover {
+      animation: bounce 0.3s ease-in-out forwards; /* Apply bounce animation on hover */
+    }
+  </style>
+</head>
+<body class="text-gray-100 min-h-screen flex flex-col items-center p-6 sm:p-10">
+  <!-- Main title with enhanced styling -->
+  <h1 class="text-4xl sm:text-5xl font-extrabold mb-8 sm:mb-12 text-center tracking-tight drop-shadow-lg">
+    PREMIUM <span class="text-purple-400">-</span> FEATURES
+  </h1>
+
+  <!-- Container for premium plans -->
+  <div class="w-full max-w-md space-y-6 sm:space-y-8">
+    <!-- Starter Plan Card -->
+    <div class="
+      bg-gray-800/70 border border-gray-700 rounded-2xl flex items-center gap-4 px-6 py-5
+      shadow-xl transition-all duration-300 transform
+      cursor-pointer bouncy-card
+    ">
+      <i class="fas fa-leaf text-green-400 text-3xl sm:text-4xl drop-shadow-md"></i>
+      <div class="flex flex-col text-xl sm:text-2xl font-semibold leading-tight text-gray-50">
+        <span>Starter</span>
+        <span class="text-base sm:text-lg font-medium text-gray-300">₹ 99 / month</span>
+      </div>
+      <span class="ml-auto text-sm sm:text-base font-medium text-purple-400 px-3 py-1 bg-purple-900/30 rounded-full">Best Value</span>
+    </div>
+
+    <!-- PRO Plan Card -->
+    <div class="
+      bg-gray-800/70 border border-gray-700 rounded-2xl flex items-center gap-4 px-6 py-5
+      shadow-xl transition-all duration-300 transform
+      cursor-pointer bouncy-card
+    ">
+      <i class="fas fa-gem text-blue-400 text-3xl sm:text-4xl drop-shadow-md"></i>
+      <div class="flex flex-col text-xl sm:text-2xl font-semibold leading-tight text-gray-50">
+        <span>PRO</span>
+        <span class="text-base sm:text-lg font-medium text-gray-300">₹ 180 / month</span>
+      </div>
+      <span class="ml-auto text-sm sm:text-base font-medium text-orange-400 px-3 py-1 bg-orange-900/30 rounded-full">Popular</span>
+    </div>
+
+    <!-- Genius Plan Card -->
+    <div class="
+      bg-gray-800/70 border border-gray-700 rounded-2xl flex items-center gap-4 px-6 py-5
+      shadow-xl transition-all duration-300 transform
+      cursor-pointer bouncy-card
+    ">
+      <i class="fas fa-brain text-yellow-400 text-3xl sm:text-4xl drop-shadow-md"></i>
+      <div class="flex flex-col text-xl sm:text-2xl font-semibold leading-tight text-gray-50">
+        <span>Genius</span>
+        <span class="text-base sm:text-lg font-medium text-gray-300">₹ 3000 / Year</span>
+      </div>
+      <span class="ml-auto text-sm sm:text-base font-medium text-pink-400 px-3 py-1 bg-pink-900/30 rounded-full">Limited</span>
+    </div>
+  </div>
+
+  <!-- Top-Ups Section Title -->
+  <h2 class="text-2xl sm:text-3xl font-bold mt-12 sm:mt-16 mb-6 text-center text-gray-50 tracking-wide">
+    <i class="fas fa-plus-circle text-gray-400 mr-2"></i>TOP-UPS
+  </h2>
+
+  <!-- Container for Top-Ups -->
+  <div class="w-full max-w-md space-y-6 sm:space-y-8">
+    <!-- Daily Top-Up Card 1 -->
+    <div class="
+      bg-gray-800/70 border border-gray-700 rounded-2xl flex items-center gap-4 px-6 py-5
+      shadow-xl transition-all duration-300 transform
+      cursor-pointer bouncy-card
+    ">
+      <i class="fas fa-bolt text-red-400 text-3xl sm:text-4xl drop-shadow-md"></i>
+      <span class="text-xl sm:text-2xl font-semibold text-gray-50">₹ 70 / Day</span>
+      <span class="ml-auto text-sm sm:text-base font-medium text-gray-400">Quick Boost</span>
+    </div>
+
+    <!-- Daily Top-Up Card 2 -->
+    <div class="
+      bg-gray-800/70 border border-gray-700 rounded-2xl flex items-center gap-4 px-6 py-5
+      shadow-xl transition-all duration-300 transform
+      cursor-pointer bouncy-card
+    ">
+      <i class="fas fa-battery-half text-yellow-500 text-3xl sm:text-4xl drop-shadow-md"></i>
+      <span class="text-xl sm:text-2xl font-semibold text-gray-50">₹ 10 / Day</span>
+      <span class="ml-auto text-sm sm:text-base font-medium text-gray-400">Small Charge</span>
+    </div>
+  </div>
+</body>
+</html>
+

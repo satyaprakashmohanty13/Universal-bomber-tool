@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relax! Bombing Had Stopped</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #2c073f; /* Dark purple background */
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden; /* Prevent scroll if content slightly overflows during animation */
+        }
+
+        /* Poster Container Styling (for the final revealed poster) */
+        .poster-container {
+            max-width: 90%;
+            width: 500px;
+            background-color: #5a2d7f; /* Lighter purple background */
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 1s ease-in-out; /* Smooth transition for showing */
+        }
+
+        .poster-container.show {
+            opacity: 1; /* Fade in when 'show' class is added */
+        }
+
+        .poster-image {
+            width: 150px;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .poster-text {
+            color: #e0b0ff; /* Light purple text */
+            font-size: 2.25rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Bomb Display Styling for animation */
+        #bomb-animation-display {
+            position: relative;
+            width: 200px; /* Bomb size */
+            height: 200px;
+            background-color: #1a1a1a; /* Very dark almost black for the bomb */
+            border-radius: 50%; /* Perfect circle */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 5px solid #ffcc00; /* Yellow border for danger look */
+            box-shadow: inset 0 0 20px rgba(255, 204, 0, 0.5), 0 0 30px rgba(255, 204, 0, 0.7); /* Inner and outer glow */
+            /* Animation properties */
+            animation: initialPop 0.5s ease-out forwards,
+                       shake 0.5s cubic-bezier(.36,.07,.19,.97) 0.5s both infinite,
+                       fadeOut 1s forwards 2s; /* Initial pop, then shake, then fade out after 2 seconds */
+        }
+
+        /* Fuse on the bomb */
+        #fuse {
+            position: absolute;
+            top: -15px; /* Position above the bomb */
+            left: 50%;
+            transform: translateX(-50%) rotate(0deg);
+            width: 40px;
+            height: 8px;
+            background-color: #a0522d; /* Sienna brown */
+            border-radius: 4px;
+            animation: fuseBurn 1s infinite linear; /* Simple burning effect */
+            transform-origin: bottom center;
+            box-shadow: 0 0 5px rgba(255, 165, 0, 0.7);
+        }
+
+        /* Initial Pop-in animation for the bomb */
+        @keyframes initialPop {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Fuse burning animation */
+        @keyframes fuseBurn {
+            0% { background-color: #a0522d; }
+            50% { background-color: #ff8c00; } /* Dark orange */
+            100% { background-color: #a0522d; }
+        }
+
+        /* Shake effect */
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        /* Fade out effect */
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(1.5); display: none; } /* Scale up slightly while fading */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .poster-container, #bomb-animation-display {
+                padding: 20px;
+                width: 90%; /* Adjust width for smaller screens */
+            }
+            .poster-text {
+                font-size: 1.75rem;
+            }
+            .poster-image {
+                width: 100px;
+            }
+            #bomb-animation-display {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bomb Animation Display -->
+    <div id="bomb-animation-display" class="absolute z-10">
+        <div id="fuse"></div>
+        <div class="text-white text-3xl font-bold">BOMB</div> <!-- Simple text for bomb -->
+    </div>
+
+    <!-- Original Poster Content (initially hidden) -->
+    <div id="original-poster-content" class="poster-container absolute z-0">
+        <img src="image.png" alt="Relieved Face Emoji" class="poster-image">
+        <p class="poster-text">Relax! Bombing had stopped</p>
+    </div>
+
+    <script>
+        const bombAnimationDisplay = document.getElementById('bomb-animation-display');
+        const originalPosterContent = document.getElementById('original-poster-content');
+
+        // This function will be called after the bomb animation finishes
+        function showPoster() {
+            // Hide the bomb animation display
+            bombAnimationDisplay.style.display = 'none';
+            // Show the original poster content with a fade-in effect
+            originalPosterContent.classList.add('show');
+            originalPosterContent.style.zIndex = '10'; // Bring poster to front
+        }
+
+        window.onload = function() {
+            // Set a timeout to call showPoster after the bomb animation duration
+            // initialPop (0.5s) + shake (0.5s) + fadeOut (1s) = 2s animation duration
+            // Add a small buffer, e.g., 2.5 seconds to ensure animation completes
+            setTimeout(showPoster, 2500);
+        };
+    </script>
+</body>
+</html>
+

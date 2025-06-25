@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login / Signup - universal Call Bomber</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome CDN for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0V4LLanw2qksYuRlEzO+tcaEPQogQ0KaoIZ2jx1U1c1rG+6bO3g2Ff5E2g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Google Fonts - Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Custom styles for initial animation and font-family */
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    /* Initial fade-in for the main container */
+    .animate-initial-fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* Animation for messages */
+    .message-animation {
+      animation: messageFadeIn 0.5s ease-out forwards;
+    }
+    @keyframes messageFadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100 flex items-center justify-center min-h-screen p-4">
+
+  <!-- Main Container for the entire authentication experience -->
+  <div id="main-visual-wrapper" class="w-full max-w-md mx-auto relative opacity-0 transform scale-95 animate-initial-fade-in">
+    
+    <!-- Title and Toggle Buttons (remain static) -->
+    <h2 id="form-title" class="text-4xl font-extrabold mb-8 text-center text-indigo-400 tracking-wide">
+      <i class="fas fa-lock mr-3"></i>Login
+    </h2>
+
+    <div class="flex justify-center mb-8 rounded-lg overflow-hidden border border-gray-700 bg-gray-700 shadow-inner">
+      <button id="login-toggle" class="flex-1 py-3 text-lg font-semibold bg-indigo-700 text-white transition-all duration-300 ease-in-out cursor-pointer hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75 rounded-l-lg">
+        Login
+      </button>
+      <button id="signup-toggle" class="flex-1 py-3 text-lg font-semibold bg-gray-700 text-gray-300 transition-all duration-300 ease-in-out cursor-pointer hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75 rounded-r-lg">
+        Sign Up
+      </button>
+    </div>
+
+    <!-- Carousel Container for the Shifting Cards -->
+    <div id="auth-card-carousel" class="relative overflow-hidden rounded-xl shadow-2xl bg-gray-800 min-h-[500px]">
+      <div id="cards-container" class="flex w-[200%] h-full transition-transform duration-500 ease-in-out">
+        
+        <!-- Login Card Content -->
+        <div class="w-1/2 flex-shrink-0 p-8 flex flex-col justify-center">
+          <form id="login-form">
+            <label for="login-email" class="block text-sm font-medium text-gray-300 mb-2">
+              <i class="fas fa-envelope mr-2"></i>Email
+            </label>
+            <input type="email" id="login-email" required class="w-full px-4 py-3 mb-5 bg-gray-700 border border-gray-600 rounded-lg text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 ease-in-out shadow-sm" placeholder="your.email@example.com" />
+            
+            <label for="login-password" class="block text-sm font-medium text-gray-300 mb-2">
+              <i class="fas fa-key mr-2"></i>Password
+            </label>
+            <input type="password" id="login-password" required class="w-full px-4 py-3 mb-6 bg-gray-700 border border-gray-600 rounded-lg text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 ease-in-out shadow-sm" placeholder="••••••••" />
+            
+            <button type="submit" class="w-full py-3 mt-4 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl">
+              <i class="fas fa-sign-in-alt mr-2"></i>Login
+            </button>
+            <div class="message mt-6 text-center text-sm font-medium" id="login-message"></div>
+          </form>
+
+          <div class="relative text-center my-8 text-gray-400 before:content-[''] before:absolute before:left-0 before:top-1/2 before:h-px before:w-[45%] before:bg-gray-700 after:content-[''] after:absolute after:right-0 after:top-1/2 after:h-px after:w-[45%] after:bg-gray-700">
+            <span class="px-2 bg-gray-800 z-10">OR</span>
+          </div>
+
+          <!-- Social Logins for Login Card -->
+          <div class="flex flex-col space-y-4">
+            <button id="google-signin-login" class="w-full py-3 px-4 flex items-center justify-center space-x-3 text-gray-200 bg-gray-700 border border-gray-600 rounded-lg hover:bg-gray-600 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800 shadow-md hover:shadow-lg">
+              <i class="fab fa-google text-red-500 text-lg"></i>
+              <span>Sign in with Google</span>
+            </button>
+            <button id="github-signin-login" class="w-full py-3 px-4 flex items-center justify-center space-x-3 text-gray-200 bg-gray-700 border border-gray-600 rounded-lg hover:bg-gray-600 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800 shadow-md hover:shadow-lg">
+              <i class="fab fa-github text-gray-300 text-lg"></i>
+              <span>Sign in with GitHub</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sign Up Card Content -->
+        <div class="w-1/2 flex-shrink-0 p-8 flex flex-col justify-center">
+          <form id="signup-form">
+            <label for="signup-email" class="block text-sm font-medium text-gray-300 mb-2">
+              <i class="fas fa-envelope mr-2"></i>Email
+            </label>
+            <input type="email" id="signup-email" required class="w-full px-4 py-3 mb-5 bg-gray-700 border border-gray-600 rounded-lg text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 ease-in-out shadow-sm" placeholder="your.email@example.com" />
+            
+            <label for="signup-password" class="block text-sm font-medium text-gray-300 mb-2">
+              <i class="fas fa-key mr-2"></i>Password
+            </label>
+            <input type="password" id="signup-password" required class="w-full px-4 py-3 mb-6 bg-gray-700 border border-gray-600 rounded-lg text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 ease-in-out shadow-sm" placeholder="••••••••" />
+            
+            <button type="submit" class="w-full py-3 mt-4 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl">
+              <i class="fas fa-user-plus mr-2"></i>Sign Up
+            </button>
+            <div class="message mt-6 text-center text-sm font-medium" id="signup-message"></div>
+          </form>
+
+          <div class="relative text-center my-8 text-gray-400 before:content-[''] before:absolute before:left-0 before:top-1/2 before:h-px before:w-[45%] before:bg-gray-700 after:content-[''] after:absolute after:right-0 after:top-1/2 after:h-px after:w-[45%] after:bg-gray-700">
+            <span class="px-2 bg-gray-800 z-10">OR</span>
+          </div>
+
+          <!-- Social Logins for Sign Up Card -->
+          <div class="flex flex-col space-y-4">
+            <button id="google-signin-signup" class="w-full py-3 px-4 flex items-center justify-center space-x-3 text-gray-200 bg-gray-700 border border-gray-600 rounded-lg hover:bg-gray-600 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800 shadow-md hover:shadow-lg">
+              <i class="fab fa-google text-red-500 text-lg"></i>
+              <span>Sign in with Google</span>
+            </button>
+            <button id="github-signin-signup" class="w-full py-3 px-4 flex items-center justify-center space-x-3 text-gray-200 bg-gray-700 border border-gray-600 rounded-lg hover:bg-gray-600 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800 shadow-md hover:shadow-lg">
+              <i class="fab fa-github text-gray-300 text-lg"></i>
+              <span>Sign in with GitHub</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    GoogleAuthProvider,
+    GithubAuthProvider,
+    signInWithPopup,
+  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCBqALUUJgv0EUw_E2S50w8TL3KjW4OoNE",
+    authDomain: "call-bomber-14.firebaseapp.com",
+    projectId: "call-bomber-14",
+    storageBucket: "call-bomber-14.firebasestorage.app",
+    messagingSenderId: "461081546399",
+    appId: "1:461081546399:web:4642c2bfdc0e0c9f109caa",
+    measurementId: "G-WMN954395N"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const loginBtn = document.getElementById("login-toggle");
+  const signupBtn = document.getElementById("signup-toggle");
+  const cardsContainer = document.getElementById("cards-container"); // The container that holds both cards
+  const title = document.getElementById("form-title");
+  const mainVisualWrapper = document.getElementById("main-visual-wrapper");
+
+  // Initial animation for the main container
+  document.addEventListener('DOMContentLoaded', () => {
+    mainVisualWrapper.classList.remove('opacity-0', 'scale-95');
+    mainVisualWrapper.classList.add('opacity-100', 'scale-100');
+  });
+
+  /**
+   * Displays the specified form by sliding the cards container.
+   * Also updates the active state of the toggle buttons and the title.
+   * @param {string} formType - 'login' or 'signup'
+   * @param {string} newTitleText - The text for the form title.
+   * @param {string} iconClass - The Font Awesome icon class for the title.
+   */
+  const showForm = (formType, newTitleText, iconClass) => {
+    // Update button active state
+    if (formType === 'login') {
+      loginBtn.classList.add("bg-indigo-700", "text-white");
+      loginBtn.classList.remove("bg-gray-700", "text-gray-300", "hover:bg-gray-600");
+      signupBtn.classList.remove("bg-indigo-700", "text-white");
+      signupBtn.classList.add("bg-gray-700", "text-gray-300", "hover:bg-gray-600");
+      cardsContainer.style.transform = 'translateX(0%)'; // Slide to show login card
+    } else {
+      signupBtn.classList.add("bg-indigo-700", "text-white");
+      signupBtn.classList.remove("bg-gray-700", "text-gray-300", "hover:bg-gray-600");
+      loginBtn.classList.remove("bg-indigo-700", "text-white");
+      loginBtn.classList.add("bg-gray-700", "text-gray-300", "hover:bg-gray-600");
+      cardsContainer.style.transform = 'translateX(-50%)'; // Slide to show signup card
+    }
+    title.innerHTML = `<i class="${iconClass} mr-3"></i>${newTitleText}`;
+  };
+
+  // Event listeners for toggle buttons
+  loginBtn.onclick = () => showForm('login', "Login", "fas fa-lock");
+  signupBtn.onclick = () => showForm('signup', "Sign Up", "fas fa-user-plus");
+
+  /**
+   * Displays a message on the UI.
+   * @param {string} elementId - The ID of the HTML element where the message should be displayed.
+   * @param {string} message - The message text.
+   * @param {boolean} isError - True if it's an error message, false for success.
+   */
+  const displayMessage = (elementId, message, isError = false) => {
+    const msgElement = document.getElementById(elementId);
+    if (msgElement) {
+      msgElement.innerText = message;
+      msgElement.classList.remove('text-red-400', 'text-green-400', 'message-animation'); // Clear previous styles and animation
+      // Trigger reflow to restart animation
+      void msgElement.offsetWidth; 
+      msgElement.classList.add(isError ? 'text-red-400' : 'text-green-400', 'message-animation');
+    }
+  };
+
+  // Sign Up (Email)
+  document.getElementById("signup-form").onsubmit = async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("signup-email").value;
+    const password = document.getElementById("signup-password").value;
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      displayMessage("signup-message", "Sign up successful! Redirecting...", false);
+      // Simulate redirect after a short delay for message visibility
+      setTimeout(() => {
+        window.location.href = "main.html"; 
+      }, 1500); 
+    } catch (error) {
+      displayMessage("signup-message", error.message, true);
+    }
+  };
+
+  // Login (Email)
+  document.getElementById("login-form").onsubmit = async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      displayMessage("login-message", "Login successful! Redirecting...", false);
+      // Simulate redirect after a short delay for message visibility
+      setTimeout(() => {
+        window.location.href = "main.html"; 
+      }, 1500);
+    } catch (error) {
+      displayMessage("login-message", error.message, true);
+    }
+  };
+
+  // Google Login (for Login Card)
+  document.getElementById("google-signin-login").onclick = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      displayMessage("login-message", "Signed in with Google! Redirecting...", false);
+      setTimeout(() => {
+        window.location.href = "main.html"; 
+      }, 1500);
+    } catch (error) {
+      displayMessage("login-message", error.message, true);
+    }
+  };
+
+  // GitHub Login (for Login Card)
+  document.getElementById("github-signin-login").onclick = async () => {
+    const provider = new GithubAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      displayMessage("login-message", "Signed in with GitHub! Redirecting...", false);
+      setTimeout(() => {
+        window.location.href = "main.html"; 
+      }, 1500);
+    } catch (error) {
+      displayMessage("login-message", error.message, true);
+    }
+  };
+
+  // Google Login (for Sign Up Card)
+  document.getElementById("google-signin-signup").onclick = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      displayMessage("signup-message", "Signed in with Google! Redirecting...", false);
+      setTimeout(() => {
+        window.location.href = "main.html"; 
+      }, 1500);
+    } catch (error) {
+      displayMessage("signup-message", error.message, true);
+    }
+  };
+
+  // GitHub Login (for Sign Up Card)
+  document.getElementById("github-signin-signup").onclick = async () => {
+    const provider = new GithubAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      displayMessage("signup-message", "Signed in with GitHub! Redirecting...", false);
+      setTimeout(() => {
+        window.location.href = "main.html"; 
+      }, 1500);
+    } catch (error) {
+      displayMessage("signup-message", error.message, true);
+    }
+  };
+</script>
+</body>
+</html>
+

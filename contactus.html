@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Universal Steganography Tool</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN (for attractive icons) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Custom font for a more royal feel */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif; /* Default font */
+      overflow-x: hidden; /* Prevent horizontal scrolling */
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif; /* Royal font for headings */
+    }
+
+    /* Keyframes for subtle background animation */
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Apply animation to the body background */
+    .animated-gradient {
+      background: linear-gradient(-45deg, #1A202C, #2D3748, #4A5568, #2C3E50); /* Darker, royal-themed gradient */
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+    }
+
+    /* Custom styles for input focus (optional, but enhances royal feel) */
+    input:focus, textarea:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(164, 116, 255, 0.5); /* A softer, royal purple glow */
+      border-color: #8B5CF6; /* A matching purple border */
+    }
+
+    /* Button hover animation */
+    .btn-hover-effect {
+      transition: all 0.3s ease;
+    }
+
+    .btn-hover-effect:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body class="animated-gradient min-h-screen flex items-center justify-center p-4">
+
+  <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg border border-gray-700 rounded-xl shadow-2xl p-8 max-w-lg w-full transform transition-all duration-500 ease-in-out scale-95 hover:scale-100">
+    <h2 class="text-4xl text-center mb-8 font-bold text-gray-50 uppercase tracking-wide">
+      Contact Us
+    </h2>
+    <form action="mailto:mohanty.subash1984@gmail.com" method="post" enctype="text/plain">
+      <div class="mb-5">
+        <label for="name" class="block text-gray-200 text-sm font-semibold mb-2 flex items-center">
+          <i data-lucide="user" class="w-5 h-5 mr-2 text-purple-300"></i>
+          Name <span class="text-red-400 ml-1">*</span>
+        </label>
+        <input type="text" id="name" name="Name" required
+               class="w-full p-3 rounded-lg bg-gray-800 bg-opacity-70 text-white border border-gray-700 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200">
+      </div>
+
+      <div class="mb-5">
+        <label for="address" class="block text-gray-200 text-sm font-semibold mb-2 flex items-center">
+          <i data-lucide="map-pin" class="w-5 h-5 mr-2 text-purple-300"></i>
+          Address <span class="text-red-400 ml-1">*</span>
+        </label>
+        <input type="text" id="address" name="Address" required
+               class="w-full p-3 rounded-lg bg-gray-800 bg-opacity-70 text-white border border-gray-700 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200">
+      </div>
+
+      <div class="mb-5">
+        <label for="contact" class="block text-gray-200 text-sm font-semibold mb-2 flex items-center">
+          <i data-lucide="phone" class="w-5 h-5 mr-2 text-purple-300"></i>
+          Contact Number (Optional)
+        </label>
+        <input type="text" id="contact" name="Contact"
+               class="w-full p-3 rounded-lg bg-gray-800 bg-opacity-70 text-white border border-gray-700 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200">
+      </div>
+
+      <div class="mb-6">
+        <label for="message" class="block text-gray-200 text-sm font-semibold mb-2 flex items-center">
+          <i data-lucide="message-square" class="w-5 h-5 mr-2 text-purple-300"></i>
+          Message <span class="text-red-400 ml-1">*</span>
+        </label>
+        <textarea id="message" name="Message" required
+                  class="w-full p-3 rounded-lg bg-gray-800 bg-opacity-70 text-white border border-gray-700 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200 h-32 resize-y"></textarea>
+      </div>
+
+      <button type="submit"
+              class="btn-hover-effect w-full py-3 px-6 rounded-lg text-lg font-bold text-white
+                     bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800
+                     shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50">
+        Send Message
+      </button>
+    </form>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>
+

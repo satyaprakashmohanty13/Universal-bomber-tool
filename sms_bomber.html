@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cybernetic Control Panel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Orbitron for titles/numbers, Inter for general text -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* Custom CSS for a deeper, more animated dark theme with blue/purple accents */
+    body {
+      font-family: 'Inter', sans-serif; /* Default font for body */
+      background: #0a0a0a; /* Very dark, almost black background */
+      color: #b0b0b0; /* Muted silver text for contrast */
+      margin: 0;
+      padding: 20px; /* Add some padding for mobile screens */
+      box-sizing: border-box; /* Include padding in element's total width and height */
+      position: relative; /* For absolute positioning of background effects */
+      overflow-x: hidden; /* Prevent horizontal scroll */
+      min-height: 100vh; /* Ensure body covers at least viewport height */
+    }
+
+    /* Subtle flowing grid/circuit pattern background effect */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        repeating-linear-gradient(0deg, rgba(0, 204, 255, 0.05) 0px, rgba(0, 204, 255, 0.05) 1px, transparent 1px, transparent 40px),
+        repeating-linear-gradient(90deg, rgba(0, 204, 255, 0.05) 0px, rgba(0, 204, 255, 0.05) 1px, transparent 1px, transparent 40px);
+      background-size: 40px 40px;
+      pointer-events: none; /* Allows clicks to pass through */
+      animation: dataFlow 20s linear infinite; /* Subtle data flow animation */
+      z-index: -1; /* Ensure it's behind content */
+    }
+
+    /* Keyframes for the data flow background animation */
+    @keyframes dataFlow {
+      from { background-position: 0 0; }
+      to { background-position: 40px 40px; }
+    }
+
+    /* Orbitron font class for specific elements */
+    .font-orbitron {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    /* Custom slider styling for a futuristic, high-tech look */
+    input[type="range"] {
+      -webkit-appearance: none; /* Remove default WebKit styles */
+      width: 100%;
+      height: 8px; /* Thicker track for better visibility */
+      background: #1a1a1a; /* Darker track background */
+      border-radius: 10px;
+      outline: none;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+      box-shadow: inset 0 0 5px rgba(0, 204, 255, 0.3); /* Inner glow for the track */
+    }
+
+    /* Styles for the slider track (Webkit browsers) */
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 8px;
+      background: linear-gradient(to right, #00CCFF, #8A2BE2); /* Blue to Purple gradient */
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0, 204, 255, 0.5); /* Outer glow for the track */
+    }
+
+    /* Styles for the slider track (Mozilla Firefox) */
+    input[type="range"]::-moz-range-track {
+      height: 8px;
+      background: linear-gradient(to right, #00CCFF, #8A2BE2);
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0, 204, 255, 0.5);
+    }
+
+    /* Styles for the slider thumb (Webkit browsers) */
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; /* Remove default WebKit styles */
+      appearance: none;
+      width: 24px; /* Larger thumb for easier interaction */
+      height: 24px;
+      background: #00CCFF; /* Bright blue thumb */
+      cursor: grab; /* Cursor indicating grab functionality */
+      border-radius: 50%; /* Circular thumb */
+      border: 3px solid #0099CC; /* Stronger border */
+      margin-top: -8px; /* Center thumb vertically on the track */
+      position: relative;
+      z-index: 3;
+      box-shadow: 0 0 15px rgba(0, 204, 255, 0.7), 0 0 5px rgba(0, 0, 0, 0.5); /* Stronger glow effect */
+      transition: box-shadow 0.2s ease-in-out; /* Smooth transition for box-shadow on active state */
+    }
+
+    /* Styles for the slider thumb when active (Webkit browsers) */
+    input[type="range"]::-webkit-slider-thumb:active {
+        cursor: grabbing; /* Cursor indicating active grab */
+        box-shadow: 0 0 25px rgba(0, 204, 255, 0.9), 0 0 10px rgba(0, 0, 0, 0.7); /* Enhanced glow when active */
+    }
+
+    /* Styles for the slider thumb (Mozilla Firefox) */
+    input[type="range"]::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      background: #00CCFF;
+      cursor: grab;
+      border-radius: 50%;
+      border: 3px solid #0099CC;
+      position: relative;
+      z-index: 3;
+      box-shadow: 0 0 15px rgba(0, 204, 255, 0.7), 0 0 5px rgba(0, 0, 0, 0.5);
+      transition: box-shadow 0.2s ease-in-out;
+    }
+
+    /* Styles for the slider thumb when active (Mozilla Firefox) */
+    input[type="range"]::-moz-range-thumb:active {
+        cursor: grabbing;
+        box-shadow: 0 0 25px rgba(0, 204, 255, 0.9), 0 0 10px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Keyframes for button pulse glow on hover */
+    @keyframes pulseGlow {
+      from { box-shadow: 0 0 0 rgba(0, 204, 255, 0.7); } /* Starting shadow (no glow) */
+      to { box-shadow: 0 0 15px rgba(0, 204, 255, 0.9), 0 0 30px rgba(0, 204, 255, 0.6); } /* Ending shadow (strong glow) */
+    }
+
+    /* Apply button pulse glow animation on hover */
+    .btn-pulse:hover {
+      animation: pulseGlow 1s infinite alternate; /* Pulse animation, repeats infinitely and alternates direction */
+    }
+
+    /* Input and textarea focus glow effect */
+    input:focus, textarea:focus {
+      outline: none; /* Remove default outline */
+      box-shadow: 0 0 0 3px rgba(0, 204, 255, 0.5); /* Blue glow on focus */
+      transition: box-shadow 0.3s ease-in-out; /* Smooth transition for the glow */
+    }
+
+    /* Keyframes for staggered pulsing title letters */
+    @keyframes cyber-pulse {
+      0%, 100% { opacity: 1; text-shadow: 0 0 10px rgba(0, 204, 255, 0.7); } /* Normal state */
+      50% { opacity: 0.7; text-shadow: 0 0 20px rgba(0, 204, 255, 0.9); } /* Pulsing effect */
+    }
+
+    /* Base style for individual letters in the H1 title */
+    .h1-letter {
+      display: inline-block; /* Allows individual animation and spacing */
+      animation: cyber-pulse 2s infinite ease-in-out; /* Apply the cyber-pulse animation */
+    }
+  </style>
+</head>
+<body>
+  <!-- Main container for the control panel, centered and responsive -->
+  <div
+    class="relative w-full max-w-md p-8 bg-zinc-900 border-2 border-cyan-600 rounded-xl shadow-2xl shadow-cyan-800/40 transform transition-all duration-300 ease-in-out hover:scale-[1.01] hover:shadow-cyan-700/60 mx-auto"
+  >
+    <!-- Subtle circuit pattern overlay for a tech aesthetic -->
+    <div
+      class="absolute inset-0 bg-[size:100px_100px] opacity-5 rounded-xl"
+      style="background-image: radial-gradient(#00CCFF 0.5px, transparent 0.5px);"
+    ></div>
+
+    <!-- Main title with staggered pulsing animation for each letter -->
+    <h1 class="text-cyan-400 font-orbitron text-3xl mb-8 text-center select-none relative z-10" style="text-shadow: 0 0 10px rgba(0, 204, 255, 0.7);">
+      <!-- Each letter is wrapped in a span with a custom animation delay for the staggered effect -->
+      <span class="h1-letter" style="animation-delay: 0ms;">C</span>
+      <span class="h1-letter" style="animation-delay: 50ms;">Y</span>
+      <span class="h1-letter" style="animation-delay: 100ms;">B</span>
+      <span class="h1-letter" style="animation-delay: 150ms;">E</span>
+      <span class="h1-letter" style="animation-delay: 200ms;">R</span>
+      <span class="h1-letter" style="animation-delay: 250ms;">N</span>
+      <span class="h1-letter" style="animation-delay: 300ms;">E</span>
+      <span class="h1-letter" style="animation-delay: 350ms;">T</span>
+      <span class="h1-letter" style="animation-delay: 400ms;">I</span>
+      <span class="h1-letter" style="animation-delay: 450ms;">C</span>
+      <br>
+      <span class="h1-letter" style="animation-delay: 500ms;">C</span>
+      <span class="h1-letter" style="animation-delay: 550ms;">O</span>
+      <span class="h1-letter" style="animation-delay: 600ms;">N</span>
+      <span class="h1-letter" style="animation-delay: 650ms;">T</span>
+      <span class="h1-letter" style="animation-delay: 700ms;">R</span>
+      <span class="h1-letter" style="animation-delay: 750ms;">O</span>
+      <span class="h1-letter" style="animation-delay: 800ms;">L</span>
+      <span class="h1-letter" style="animation-delay: 850ms;">P</span>
+      <span class="h1-letter" style="animation-delay: 900ms;">A</span>
+      <span class="h1-letter" style="animation-delay: 950ms;">N</span>
+      <span class="h1-letter" style="animation-delay: 1000ms;">E</span>
+      <span class="h1-letter" style="animation-delay: 1050ms;">L</span>
+    </h1>
+
+    <!-- Target Number input group with a phone icon -->
+    <div class="mb-6 relative z-10">
+      <label for="targetNumber" class="text-cyan-400 text-sm mb-2 block select-none"
+        >Target Number</label
+      >
+      <div class="relative">
+        <input
+          id="targetNumber"
+          type="text"
+          placeholder="+91XXXXXXXXXX"
+          class="w-full bg-zinc-800 text-sky-200 font-inter font-semibold text-sm rounded-md py-3 pl-12 pr-4 placeholder-sky-500 border border-transparent focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 transition-all duration-200"
+        />
+        <!-- Phone icon (SVG) embedded directly -->
+        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-sky-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h13A1.5 1.5 0 0118 3.5v13a1.5 1.5 0 01-1.5 1.5h-13A1.5 1.5 0 012 16.5v-13zM10.75 3a.75.75 0 00-1.5 0v.75a.75.75 0 001.5 0V3zm-1.5 3a.75.75 0 01.75-.75h.5a.75.75 0 010 1.5h-.5a.75.75 0 01-.75-.75zM10 16.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Number of Calls input group with a hash icon -->
+    <div class="mb-6 relative z-10">
+      <label for="numCalls" class="text-cyan-400 text-sm mb-2 block select-none"
+        >Number of SMS</label
+      >
+      <div class="relative">
+        <input
+          id="numCalls"
+          type="text"
+          placeholder="No of SMS"
+          class="w-full bg-zinc-800 text-sky-200 font-inter font-semibold text-sm rounded-md py-3 pl-12 pr-4 placeholder-sky-500 border border-transparent focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 transition-all duration-200"
+        />
+        <!-- Hash icon (SVG) embedded directly -->
+        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-sky-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M5.75 2A1.75 1.75 0 004 3.75v12.5A1.75 1.75 0 005.75 18h8.5A1.75 1.75 0 0016 16.25V3.75A1.75 1.75 0 0014.25 2h-8.5zM11.5 4.75a.75.75 0 00-1.5 0V5.5h-1.25a.75.75 0 000 1.5h1.25v1.25a.75.75 0 001.5 0V7H13a.75.75 0 000-1.5h-1.5V4.75zM8.5 13.5a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Bombing Speed slider -->
+    <div class="mb-6 relative z-10">
+      <label for="speed" class="text-cyan-400 text-sm mb-2 block select-none"
+        >Bombing Speed</label
+      >
+      <input id="speed" type="range" min="1" max="100" value="50" />
+      <div class="flex justify-between text-sky-400 text-xs mt-1 select-none">
+        <span>Slow</span>
+        <span>Fast</span>
+      </div>
+    </div>
+
+    <!-- Disclaimer textarea (read-only) -->
+    <textarea
+      rows="6"
+      readonly
+      class="w-full bg-zinc-800 text-sky-200 text-xs font-inter rounded-md p-4 mb-6 resize-none border border-cyan-700/50 relative z-10 shadow-inner shadow-zinc-900/50"
+    >This tool is designed for testing purposes only. Please use responsibly and do not misuse it for any illegal activities. The creators are not responsible for any misuse or damage caused by this tool.</textarea>
+
+    <!-- Bomb Now button with pulse animation -->
+    <button
+      id="initiateBombingBtn"
+      class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-orbitron font-bold text-lg py-3 rounded-full mb-6 btn-pulse relative z-10 transition-all duration-300 ease-in-out hover:from-blue-700 hover:to-purple-700 hover:shadow-lg hover:shadow-blue-700/70"
+      type="button"
+    >
+      INITIATE SEQUENCE
+    </button>
+
+    <!-- Authorization Key input group with a key icon -->
+    <div class="mb-6 relative z-10">
+      <div class="relative">
+        <input
+          type="text"
+          placeholder="ENTER AUTHORIZATION KEY"
+          class="w-full bg-zinc-800 border border-cyan-600 rounded-full py-3 pl-12 pr-4 text-sky-200 placeholder-sky-500 font-inter text-xs focus:ring-1 focus:ring-cyan-600 transition-all duration-200"
+        />
+        <!-- Key icon (SVG) embedded directly -->
+        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-sky-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8 2a3 3 0 00-3 3v2h-.5A1.5 1.5 0 003 8.5v3A1.5 1.5 0 004.5 13H5v2a3 3 0 003 3h4a3 3 0 003-3v-2h.5a1.5 1.5 0 001.5-1.5v-3A1.5 1.5 0 0015.5 7H15V5a3 3 0 00-3-3H8zm-.5 5a.5.5 0 011 0v.5a.5.5 0 01-1 0V7zm3 0a.5.5 0 011 0v.5a.5.5 0 01-1 0V7zM8 11.5a.5.5 0 000 1h4a.5.5 0 000-1H8z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Animated Disclaimer box -->
+    <div
+      class="bg-rose-950/70 border-2 border-rose-600 rounded-lg p-5 text-center text-rose-200 text-sm font-inter select-none relative z-10 shadow-lg shadow-rose-900/50"
+      style="line-height: 1.5;"
+    >
+      <div class="flex items-center justify-center mb-3">
+        <!-- Custom Warning Icon (SVG) with bounce animation -->
+        <svg class="w-6 h-6 mr-2 text-rose-400 animate-bounce" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M9.401 3.003c1.155-2.002 4.043-2.002 5.198 0l7.359 12.75c1.154 2.002-.342 4.502-2.599 4.502H4.64L2.043 15.753c-1.155-2.002.342-4.502 2.599-4.502h14.714l-7.359-12.75zM12 9a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9.75A.75.75 0 0112 9zm0 6a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"></path>
+        </svg>
+        <span class="font-bold text-xl text-rose-400">ALERT: DISCLAIMER</span>
+      </div>
+      <p class="mb-2">
+        This tool is intended for <span class="font-bold text-rose-100">ethical testing and personal fun ONLY.</span>
+      </p>
+      <p>
+        <span class="font-bold text-rose-100">DO NOT</span> misuse for harassment or illegal activities.
+      </p>
+      <p class="mt-2">
+        <span class="font-bold text-rose-100">WARNING:</span> Excessive use may cause target device <span class="font-bold text-rose-100">FREEZE or PERMANENT DAMAGE.</span> Proceed with caution.
+      </p>
+    </div>
+
+    <!-- Footer text -->
+    <p class="text-sky-400 text-sm mt-8 text-center select-none relative z-10">
+      SYSTEM INITIATED BY: <span class="font-bold text-sky-300">@bombitup</span>
+    </p>
+  </div>
+
+  <script>
+    document.getElementById('initiateBombingBtn').addEventListener('click', function() {
+      // Redirect to result.html when the button is clicked
+      window.location.href = 'result.html';
+    });
+  </script>
+</body>
+</html>
+

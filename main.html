@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>main page</title>
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Link to Google Fonts for Inter font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Link to Font Awesome for icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <style>
+    /* Custom styles for the Inter font */
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 to-black min-h-screen flex flex-col p-4 sm:p-6 md:p-10 text-white">
+  <!-- Header Section -->
+  <header class="flex justify-between items-center mb-12 sm:mb-20 px-4 py-3 bg-gray-800 rounded-xl shadow-lg">
+    <!-- Logo Image -->
+    <div class="flex items-center">
+      <img src="logo.webp" alt="Your Company Logo" class="h-8 sm:h-10 lg:h-12 rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/100x40/333/FFF?text=Your+Logo';" />
+    </div>
+    <div class="flex items-center space-x-3 sm:space-x-5">
+      <!-- Aerdive Button -->
+      <button
+        class="border border-purple-500 bg-purple-600 hover:bg-purple-700 text-white rounded-lg px-4 py-2 text-sm sm:text-base font-medium transition duration-300 ease-in-out transform hover:scale-105 shadow-md"
+        type="button"
+      >
+        Aerdive
+      </button>
+      <!-- Crown Icon Button -->
+      <button
+        aria-label="Crown icon"
+        class="bg-yellow-500 hover:bg-yellow-600 text-yellow-900 rounded-lg p-2.5 sm:p-3 flex items-center justify-center transition duration-300 ease-in-out transform hover:scale-105 shadow-md"
+        type="button"
+        onclick="window.location.href='premium.html';"
+      >
+        <i class="fas fa-crown text-lg sm:text-xl"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Section -->
+  <main class="flex flex-col items-center justify-center flex-grow space-y-6 sm:space-y-8 px-4 py-8">
+    <!-- Main Heading -->
+    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white text-center tracking-tight leading-tight mb-6 sm:mb-10">
+      "Explore and select the tool best suited to your needs."
+    </h1>
+
+    <!-- Action Buttons Container -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 w-full max-w-lg">
+      <!-- Call Bomber Button -->
+      <button
+        class="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-full px-8 py-3 text-base sm:text-lg font-semibold shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-2xl"
+        type="button"
+        onclick="window.location.href='call_bomber.html';"
+      >
+        Call Bomber
+      </button>
+      <!-- SMS Bomber Button -->
+      <button
+        class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-full px-8 py-3 text-base sm:text-lg font-semibold shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-2xl"
+        type="button"
+        onclick="window.location.href='sms_bomber.html';"
+      >
+        SMS Bomber
+      </button>
+      <!-- Email Blaster Button -->
+      <button
+        class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-full px-8 py-3 text-base sm:text-lg font-semibold shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-2xl"
+        type="button"
+        onclick="window.location.href='email_blaster.html';"
+      >
+        Email Blaster
+      </button>
+      <!-- Whatsapp Spammer Button -->
+      <button
+        class="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white rounded-full px-8 py-3 text-base sm:text-lg font-semibold shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-2xl"
+        type="button"
+        onclick="window.location.href='whatsapp_spammer.html';"
+      >
+        Whatsapp Spammer
+      </button>
+    </div>
+  </main>
+</body>
+</html>
+
