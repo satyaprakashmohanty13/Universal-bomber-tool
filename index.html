@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Universal Bomber Tool</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+ </head>
+ <body class="bg-[#d9e9f9] w-full h-full">
+  <div class="relative w-full h-full bg-[#2a0061] overflow-hidden flex flex-col">
+    <!-- Background image -->
+    <img
+      alt="Background"
+      src="background.webp"
+      class="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+      style="z-index: 0;"
+    />
+
+    <!-- Top Navigation -->
+    <nav class="relative z-10 flex justify-end p-6 space-x-6 text-white text-sm font-normal">
+      <a href="contactus.html" class="hover:underline">Contact</a>
+      <a href="aboutus.html" class="font-semibold hover:underline">About</a>
+      <button
+        onclick="location.href='login.html';"
+        class="border border-white rounded-md px-4 py-1 text-white text-xs font-normal hover:bg-white hover:text-[#2a0061] transition-colors"
+      >
+        Log In
+      </button>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="relative z-10 flex flex-col items-center justify-center text-white px-6 pt-12 pb-8 md:pt-24 md:pb-12">
+      <!-- Logo -->
+      <img src="logo.png" alt="Logo" class="w-20 h-20 mb-4" />
+
+      <!-- Title & Description -->
+      <div class="text-center max-w-xl">
+        <div class="uppercase font-bold text-xs mb-2 tracking-widest">Universal Bomber Tool</div>
+        <h1 class="font-extrabold text-3xl md:text-4xl mb-3">🔊 Universal Bomber Tool – Unlimited Flooding Power</h1>
+        <p class="text-lg font-normal mb-8">
+          Unleash the power of automated  bombing with our ultra-fast, easy-to-use Bomber tool. Designed for testing and prank purposes only, this tool allows you to send multiple call,sms,email requests to any number instantly. 
+        </p>
+
+        <!-- Buttons -->
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="main.html">
+            <button class="bg-pink-500 hover:bg-pink-600 transition-colors rounded-md px-6 py-2 text-white font-semibold">
+              Get Started
+            </button>
+          </a>
+          <button
+            id="fullscreen-btn"
+            class="bg-transparent border border-white hover:bg-white hover:text-[#2a0061] transition-colors rounded-md px-6 py-2 text-white font-semibold"
+          >
+            Full Screen
+          </button>
+        </div>
+      </div>
+
+      <!-- Social Links -->
+      <div class="flex space-x-6 mt-10 justify-center">
+        <a
+          aria-label="Facebook"
+          href="https://www.facebook.com/profile.php?id=61576823879176&mibextid=rS40aB7S9Ucbxw6v"
+          target="_blank"
+          rel="noopener"
+          class="text-white text-xl hover:text-pink-400 transition-colors"
+        >
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a
+          aria-label="Instagram"
+          href="https://www.instagram.com/mohanty.satyaprakash.22/"
+          target="_blank"
+          rel="noopener"
+          class="text-white text-xl hover:text-pink-400 transition-colors"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a
+          aria-label="X"
+          href="https://mobile.x.com/SubashChan12922"
+          target="_blank"
+          rel="noopener"
+          class="text-white text-xl hover:text-pink-400 transition-colors"
+        >
+          <i class="fab fa-twitter"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fullscreen Script -->
+  <script>
+    document.getElementById('fullscreen-btn').addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    });
+  </script>
+ </body>
+</html>
